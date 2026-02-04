@@ -1,16 +1,15 @@
 import java.sql.*;
-public class Main
-{
+
+public class Main{
+
     private static final String url="jdbc:mysql://localhost:3306/data";
-
     private static final String user="root";
+    private static final String psd="Chinna@777";
 
-    private static final String pswd="Chinna@777";
-    public static void main(String ag[])
+    public static void main(String args[])
     {
         try
         {
-            // Load the driver
             Class.forName("com.mysql.cj.jdbc.Driver");
         }
         catch(ClassNotFoundException e)
@@ -18,43 +17,35 @@ public class Main
             System.out.println(e.getMessage());
         }
 
-
-        // create connection
         try
         {
-            Connection con=DriverManager.getConnection(url,user,pswd);
-
-            // create Statement
+            Connection con = DriverManager.getConnection(url, user, psd);
 
             Statement st=con.createStatement();
 
-            // write a query
+            String query="select * from Simple";
 
-
-
-            ResultSet result=st.executeQuery("select * from Simple");
+            ResultSet result=st.executeQuery(query);
 
             while(result.next())
             {
-                int id=result.getInt("id");
+                int id =result.getInt("id");
                 String names=result.getString("names");
                 int age=result.getInt("age");
                 double marks=result.getDouble("marks");
 
-                System.out.println("Id : "+id);
-                System.out.println("Name : "+names);
-                System.out.println("Age : "+age);
-                System.out.println("Marks : "+marks);
+                System.out.println(id);
+                System.out.println(names);
+                System.out.println(age);
+                System.out.println(marks);
+
 
             }
-
-
-
         }
-        catch (SQLException e)
+        catch(SQLException e)
         {
             System.out.println(e.getMessage());
         }
-
     }
-}
+
+ }
